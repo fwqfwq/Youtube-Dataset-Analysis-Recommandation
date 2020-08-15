@@ -1,0 +1,30 @@
+
+Pig –x mapreduce
+
+
+video = LOAD 'youtube_3days_clean.txt' 
+   USING PigStorage('\t') 
+   AS ( video_id:chararray, user_id:chararray, age:int, category:chararray, 
+   length:int, views:int, rate: float, ratings: int, comment:int, related_id:chararray );
+
+limit_data = LIMIT video 50; 
+
+1. 
+
+video_rated = ORDER video BY rate DESC;
+top_10_video = LIMIT video_rated 10;
+result = FOREACH top_10_video generate $0, $3, $7;
+
+
+
+2.
+
+groupc = GROUP video BY category;
+top_10_viewed = FOREACH groupc {
+	sorted = ORDER video BY views DESC;
+	limit_10 = LIMIT sorted 10;
+	GENERATE FLATTEN(limit_10);
+};
+
+result = FOREACH top_10_viewed generate $0, $3, $5;
+

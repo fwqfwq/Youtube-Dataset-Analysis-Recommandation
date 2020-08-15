@@ -1,0 +1,28 @@
+
+//create table
+
+CREATE TABLE video (
+	video_id string,
+	user_id string,
+	age int,
+	category string,
+	length int,
+	views int,
+	rate float,
+	ratings int,
+	comments int,
+	related_id string)
+	ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TEXTFILE;
+
+load data inpath '/youtube/youtube_3days_clean.txt' into table video;
+
+SELECT * FROM video LIMIT 10;
+
+
+ANALYSIS:
+
+1 SELECT COUNT(DISTINCT category) FROM video;
+
+2 SELECT * FROM video WHERE view>30000;
+
+3 SELECT category, sum(view) FROM video GROUP BY category ORDER BY '_c1' DESC LIMIT 10;
