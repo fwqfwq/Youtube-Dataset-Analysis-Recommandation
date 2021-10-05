@@ -1,5 +1,4 @@
-# 7250FinalProject
-Youtube Dataset Analysis. 
+# Youtube Dataset Analysis. 
 
 
 ### Analysis:
